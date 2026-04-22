@@ -3,6 +3,7 @@ import User from "./user.models"
 import { LoginUserInput, RegisterUserInput } from "./user.schema"
 import jwt from 'jsonwebtoken'
 import { NextResponse } from "next/server"
+import { signToken } from "@/lib/jwt"
 
 export const registerUser = async (data: RegisterUserInput) => {
 
@@ -40,7 +41,7 @@ export const loginUser = async (data: LoginUserInput) => {
   username:existedUser.name,
   email:existedUser.email
   }
-const token = jwt.sign(tokenPayload,process.env.TOKEN_SECRET!)
+const token =signToken(tokenPayload)
   
 
 return {
@@ -51,3 +52,4 @@ return {
     },token
 }
 }
+
